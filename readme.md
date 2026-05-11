@@ -1,42 +1,29 @@
-﻿# Global Codex Cost-Saving Rules
+命令执行
 
-These instructions apply across Codex workspaces unless a project-level `AGENTS.md` gives more specific guidance.
+优先运行最小、最有用的命令。
+只围绕当前目标探索，不读大日志、完整依赖树或大文件。
+输出很长时只看相关尾部、错误段或摘要。
+不修无关问题，除非你明确要求。
+Git / GitHub
 
-## Command Execution
+提交前只做必要检查：git status --short、目标文件 diff、必要的 build/test。
+不做宽泛历史检查，除非任务依赖历史。
+不主动查 CI、建 PR、查部署，除非你要求。
+push 失败时先看最短有效错误。
+Git 状态用聊天摘要，不直接倾倒完整输出。
+Vercel
 
-- Prefer the smallest useful command before broad inspection.
-- Keep exploration scoped to the user's current goal.
-- Do not read large logs, full dependency trees, or full files unless necessary.
-- When command output is long, inspect only the relevant tail or error section.
-- Avoid repeated status checks unless the previous result is ambiguous.
-- Do not fix unrelated issues unless the user explicitly asks.
+不明确要求就不部署。
+优先本地 build 验证，再考虑远程 Vercel。
+查部署时只看最终状态和关键错误。
+不重复轮询，除非你要求监控。
+NPM / 构建
 
-## GitHub And Git
+Windows 下如果 PowerShell 阻止 npm，优先用 cmd /c npm.cmd ...。
+如果已有 node_modules 且任务不需要改依赖，不重新安装。
+构建失败时只抓第一个可操作错误和最终摘要。
+沟通
 
-- Before committing, use minimal checks:
-  - `git status --short`
-  - targeted diff for files being committed
-  - build or test only when requested or necessary
-- Avoid broad history inspection unless the task depends on history.
-- Do not inspect CI, create PRs, or check deployments unless requested.
-- If a push fails, inspect the shortest useful error output first.
-- Summarize Git state in chat instead of dumping full command output.
-
-## Vercel
-
-- Do not deploy unless deployment is explicitly requested.
-- Prefer local build validation before remote Vercel checks.
-- When inspecting deployments, read only the final status and relevant error lines.
-- Avoid repeated polling of deployment status unless monitoring is requested.
-
-## NPM And Builds
-
-- On Windows, prefer `cmd /c npm.cmd ...` if PowerShell blocks `npm`.
-- Avoid reinstalling dependencies if `node_modules` already exists and the task does not require dependency changes.
-- For build failures, inspect the first actionable error and final summary instead of full logs.
-
-## Communication
-
-- Before expensive or networked operations, state the intended command group.
-- Ask before full CI inspection, production deploys, repeated remote checks, or broad repo scans.
-- When skipping an expensive check, say exactly what was skipped and why.
+昂贵或联网操作前，先说明要执行的命令组。
+进行完整 CI 检查、生产部署、重复远程检查、宽泛扫描前先问你。
+如果跳过昂贵检查，要明确说明跳过了什么以及原因。
