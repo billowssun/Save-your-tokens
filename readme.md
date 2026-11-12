@@ -1,3 +1,7 @@
+<!-- project-overview:start -->
+> **项目简介**：用于 Codex 工作区的节省 Token 规则，约束命令范围、日志读取和不必要的远程检查。
+<!-- project-overview:end -->
+
 当前 AGENTS.md 的核心规则是：控制成本、少做无关探索、先用最小命令完成目标。
 
 **命令执行**
